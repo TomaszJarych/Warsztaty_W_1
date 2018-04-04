@@ -9,22 +9,26 @@ public class SymulatorLotto {
 	public static void main(String[] args) {
 		int[] lottoNumber = getRandomNumbers();
 		System.out.println("Wylosowane liczby to " + Arrays.toString(lottoNumber));
+		int[] userNumbers = new int[0];
 		try (Scanner scan = new Scanner(System.in)) {
-			System.out.println("Podaj 6 unikalnych liczb w przedziale 1-49");
-			int [] userNumber = new int[0];
-			while (userNumber.length <6) {
-				int tempNumber  = scan.nextInt();
-				for (int i : userNumber) {
-					if (i == tempNumber) {
-						System.out.println("liczba została już podana, podaj inną");
-						tempNumber = scan.nextInt();
+			while (userNumbers.length < 6) {
+				System.out.println("podaj liczbę w przedziale od 1 do 52");
+				int tempInt = scan.nextInt();
+				for (int i : userNumbers) {
+					if (i == tempInt) {
+						System.out.println("Ta liczba została już podana. Podaj inną");
+						tempInt = scan.nextInt();
 					}
 				}
-				if (tempNumber > 0 && tempNumber <=49) {
-					
-					userNumber = Arrays.copyOf(userNumber, userNumber.length + 1);
-					userNumber[userNumber.length - 1] = tempNumber;}
+				if (tempInt != 0 && tempInt < 53) {
+					userNumbers = Arrays.copyOf(userNumbers, userNumbers.length + 1);
+					userNumbers[userNumbers.length - 1] = tempInt;
 				}
+
+			}
+			Arrays.sort(userNumbers);
+		} catch (InputMismatchException e) {
+			System.out.println("Błędne dane. Podaj liczbę!");
 
 		}
 	}
