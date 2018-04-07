@@ -1,6 +1,7 @@
 package a_Zadanie1;
 
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -41,7 +42,7 @@ public class SymulatorLotto {
 						tempInt = scan.nextInt();
 					}
 				}
-				if (tempInt != 0 && tempInt < 53) {
+				if (tempInt > 0 && tempInt < 53) {
 					userNumbers = Arrays.copyOf(userNumbers, userNumbers.length + 1);
 					userNumbers[userNumbers.length - 1] = tempInt;
 				}
@@ -65,7 +66,7 @@ public class SymulatorLotto {
 					tempInt = r.nextInt(50) + 1;
 				}
 			}
-			if (tempInt != 0 && !arraysOfRandom.equals(r)) {
+			if (tempInt > 0) {
 				arraysOfRandom = Arrays.copyOf(arraysOfRandom, arraysOfRandom.length + 1);
 				arraysOfRandom[arraysOfRandom.length - 1] = tempInt;
 			}
