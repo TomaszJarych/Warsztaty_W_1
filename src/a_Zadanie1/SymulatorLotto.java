@@ -7,8 +7,29 @@ import java.util.Scanner;
 public class SymulatorLotto {
 
 	public static void main(String[] args) {
-		int[] lottoNumber = getRandomNumbers();
-		System.out.println("Wylosowane liczby to " + Arrays.toString(lottoNumber));
+		int[] randomNumbers = randomNumbers();
+		int[] userNumbers = userNumber();
+		int counter = commonNumber(randomNumbers, userNumbers);
+		System.out.println("Podane liczby to " + Arrays.toString(userNumbers));
+		System.out.println("wylosowane numery to " + Arrays.toString(randomNumbers));
+		System.out.println("Liczba trafień to "+counter);
+	}
+
+	public static int commonNumber(int[] randomNumbers, int[] userNumbers) {
+		int counter = 0;
+
+		for (int i : userNumbers) {
+			for (int j : randomNumbers) {
+				if (i == j) {
+					counter++;
+				}
+
+			}
+		}
+		return counter;
+	}
+
+	public static int[] userNumber() {
 		int[] userNumbers = new int[0];
 		try (Scanner scan = new Scanner(System.in)) {
 			while (userNumbers.length < 6) {
@@ -31,23 +52,28 @@ public class SymulatorLotto {
 			System.out.println("Błędne dane. Podaj liczbę!");
 
 		}
+		return userNumbers;
 	}
 
-	public static int[] getRandomNumbers() {
-		int[] randomNumbers = new int[0];
-		Random rand = new Random();
-		while (randomNumbers.length < 6) {
-			int tempNumber = rand.nextInt(49) + 1;
-			for (int i : randomNumbers) {
-				if (i == tempNumber) {
-					tempNumber = rand.nextInt(49) + 1;
+	public static int[] randomNumbers() {
+		int[] arraysOfRandom = new int[0];
+		Random r = new Random();
+		while (arraysOfRandom.length < 6) {
+			int tempInt = r.nextInt(50) + 1;
+			for (int i : arraysOfRandom) {
+				if (i == tempInt) {
+					tempInt = r.nextInt(50) + 1;
 				}
 			}
-			randomNumbers = Arrays.copyOf(randomNumbers, randomNumbers.length + 1);
-			randomNumbers[randomNumbers.length - 1] = tempNumber;
+			if (tempInt != 0 && !arraysOfRandom.equals(r)) {
+				arraysOfRandom = Arrays.copyOf(arraysOfRandom, arraysOfRandom.length + 1);
+				arraysOfRandom[arraysOfRandom.length - 1] = tempInt;
+			}
+
 		}
-		Arrays.sort(randomNumbers);
-		return randomNumbers;
+		Arrays.sort(arraysOfRandom);
+		return arraysOfRandom;
 	}
 
 }
+
